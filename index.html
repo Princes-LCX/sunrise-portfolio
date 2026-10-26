@@ -86,7 +86,7 @@
   .card-head p{color:var(--muted);font-size:14px;}
   .chev{color:var(--accent);font-size:18px;transition:transform .25s;flex-shrink:0;margin-top:4px;}
   details.card[open] .chev{transform:rotate(180deg);}
-  .card-body{padding:0 22px 20px 0;margin:0 22px 0 66px;border-top:1px dashed var(--line);padding-top:16px;}
+  .card-body{padding:16px 24px 20px;margin:0;border-top:1px dashed var(--line);}
   .star{margin-bottom:14px;}
   .star .lab{display:inline-block;font-weight:700;color:#fff;border-radius:5px;padding:1px 10px;font-size:12.5px;margin-right:8px;}
   .s{background:var(--accent);}.t{background:#5a8a6a;}.a{background:#b07d3a;}.r{background:#7a5a8a;}
@@ -115,6 +115,8 @@
     .card-body{margin:0;padding:14px 16px 0;border-top:1px dashed var(--line);}
     .ability,.method{grid-template-columns:1fr;}
     .ability .item:first-child{grid-column:auto;}
+    .side-nav{flex-direction:row;flex-wrap:wrap;gap:8px;margin:12px 0 18px;}
+    .side-nav a{padding:6px 12px;background:var(--accent-soft);border-radius:16px;font-size:13px;}
   }
 </style>
 </head>
