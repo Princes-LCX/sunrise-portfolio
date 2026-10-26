@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>个人作品集 · 新媒体运营</title>
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&display=swap">
+<style>
+  :root{
+    --ink:#3a2e26;
+    --accent:#7a5636;
+    --accent-soft:#f1e9db;
+    --bg:#f5f1ea;
+    --card:#fffdf9;
+    --text:#2e2a26;
+    --muted:#6f655a;
+    --line:#e8ddcb;
+    --ph:#b0563a;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:"Noto Sans SC",-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.75;-webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  a{color:var(--accent);text-decoration:none;}
+
+  /* ===== 左右分栏：左固定，右滚动 ===== */
+  .layout{display:grid;grid-template-columns:330px 1fr;max-width:1180px;margin:0 auto;}
+
+  /* 左侧个人信息栏：默认与页面融合，滚动时轻量吸附浮现 */
+  aside{
+    position:sticky;top:24px;align-self:start;
+    padding:30px 22px;
+    background:transparent;border:1px solid transparent;border-radius:16px;
+    box-shadow:none;
+    max-height:calc(100vh - 48px);overflow-y:auto;overflow-x:hidden;
+    transition:background .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  body.scrolled aside{
+    background:#fff;border-color:var(--line);box-shadow:0 8px 28px rgba(31,58,77,.06);
+  }
+  .avatar{width:108px;height:108px;border-radius:50%;overflow:hidden;margin-bottom:20px;border:1px solid var(--line);}
+  .avatar img{width:100%;height:100%;object-fit:cover;display:block;}
+  aside .kicker{color:var(--accent);letter-spacing:2px;font-size:13px;margin-bottom:10px;font-weight:500;}
+  aside h1{font-size:30px;font-weight:900;color:var(--ink);margin-bottom:12px;letter-spacing:1px;}
+  aside .bio{font-size:14px;color:var(--muted);margin-bottom:18px;line-height:1.9;}
+  .tags{display:grid;grid-template-columns:repeat(3,auto);gap:8px 6px;margin-bottom:22px;justify-content:start;}
+  .tag{border:1px solid #cfc0a6;color:var(--accent);border-radius:20px;padding:3px 9px;font-size:12px;background:var(--card);white-space:nowrap;display:flex;align-items:center;justify-content:center;text-align:center;}
+
+  /* 左栏锚点导航 */
+  .side-nav{display:flex;flex-direction:column;gap:2px;margin:6px 0 22px;}
+  .side-nav a{color:var(--muted);font-size:14px;padding:8px 12px;border-radius:8px;border-left:2px solid transparent;}
+  .side-nav a:hover{color:var(--accent);background:var(--accent-soft);border-left-color:var(--accent);}
+
+  .hero-cta{display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{display:inline-block;padding:10px 20px;border-radius:8px;font-size:14px;font-weight:500;}
+  .btn-primary{background:var(--ink);color:#fff;cursor:pointer;border:none;font-family:inherit;}
+  .btn-ghost{border:1px solid var(--line);color:var(--ink);background:#fff;}
+  .mail-line{margin-top:14px;font-size:13.5px;color:var(--muted);line-height:1.9;}
+  .mail-line a{color:var(--accent);font-weight:500;}
+
+  /* 右侧内容 */
+  main{padding:44px 46px;min-width:0;}
+  section{padding:18px 0 34px;}
+  h2.sec{font-size:22px;font-weight:700;color:var(--ink);margin-bottom:6px;}
+  .sec-sub{color:var(--muted);font-size:14.5px;margin-bottom:22px;}
+  .rule{width:42px;height:3px;background:var(--accent);border-radius:2px;margin-bottom:18px;}
+
+  .ability{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .ability .item:first-child{grid-column:1 / -1;}
+  .ability .item{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px;}
+  .ability .item b{color:var(--ink);display:block;margin-bottom:6px;font-size:15px;}
+  .ability .item span{color:var(--muted);font-size:13.5px;}
+
+  .group-label{font-size:15px;font-weight:700;color:var(--accent);margin:24px 0 14px;letter-spacing:1px;}
+
+  details.card{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:14px;overflow:hidden;}
+  details.card summary{list-style:none;cursor:pointer;padding:19px 22px;display:flex;gap:18px;align-items:flex-start;}
+  details.card summary::-webkit-details-marker{display:none;}
+  .num{font-size:20px;font-weight:900;color:var(--accent);min-width:44px;}
+  .card-head{flex:1;}
+  .card-head .cat{display:inline-block;font-size:12px;color:var(--accent);background:var(--accent-soft);border-radius:5px;padding:2px 9px;margin-bottom:8px;}
+  .card-head h3{font-size:17.5px;color:var(--ink);margin-bottom:5px;}
+  .card-head p{color:var(--muted);font-size:14px;}
+  .chev{color:var(--accent);font-size:18px;transition:transform .25s;flex-shrink:0;margin-top:4px;}
+  details.card[open] .chev{transform:rotate(180deg);}
+  .card-body{padding:0 22px 20px 0;margin:0 22px 0 66px;border-top:1px dashed var(--line);padding-top:16px;}
+  .star{margin-bottom:14px;}
+  .star .lab{display:inline-block;font-weight:700;color:#fff;border-radius:5px;padding:1px 10px;font-size:12.5px;margin-right:8px;}
+  .s{background:var(--accent);}.t{background:#5a8a6a;}.a{background:#b07d3a;}.r{background:#7a5a8a;}
+  .star p{font-size:14.5px;color:var(--text);}
+  .star ul{margin:6px 0 0 20px;}
+  .star li{font-size:14.5px;margin-bottom:5px;color:var(--text);}
+  .ph{color:var(--ph);font-weight:600;}
+
+  .method{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .method .m{background:var(--accent-soft);border-radius:10px;padding:18px;}
+  .method .m b{color:var(--ink);display:block;margin-bottom:8px;}
+  .method .m ul{margin-left:18px;}
+  .method .m li{font-size:14px;color:var(--muted);margin-bottom:4px;}
+
+  .foot{border-top:1px solid var(--line);padding-top:26px;margin-top:10px;}
+  .foot .contact{font-size:15px;color:var(--ink);margin-bottom:6px;}
+  .foot .note{font-size:12.5px;color:#9aa8b0;max-width:600px;margin-top:14px;line-height:1.7;}
+
+  @media(max-width:820px){
+    .layout{grid-template-columns:1fr;}
+    aside{position:static;max-height:none;}
+    body.scrolled aside{background:transparent;border-color:transparent;box-shadow:none;}
+    main{padding:28px 20px;}
+    .card-body{margin-left:0;}
+    .ability,.method{grid-template-columns:1fr;}
+    .ability .item:first-child{grid-column:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+  <!-- ===== 左侧固定个人信息 ===== -->
+  <aside>
+    <div class="avatar">
+      <img src="https://aka.doubaocdn.com/s/7prK2z40Dt" alt="头像">
+    </div>
+    <div class="kicker">新媒体运营 · 数据驱动增长</div>
+    <h1>Sunrise</h1>
+    <p class="bio">你好，我是 Sunrise，一名新媒体运营。<br>5年小红书实战经验，具备账号从0到1搭建、公域转私域的全链路经验。</p>
+    <div class="tags">
+      <span class="tag">0-1账号搭建</span>
+      <span class="tag">自然流/付费</span>
+      <span class="tag">达人＆素人种草</span>
+      <span class="tag">私域转化</span>
+      <span class="tag">数据分析</span>
+    </div>
+    <nav class="side-nav">
+      <a href="#about">个人概述</a>
+      <a href="#works">项目经验</a>
+      <a href="#skill">经验沉淀</a>
+    </nav>
+    <div class="hero-cta">
+      <a class="btn btn-primary" href="mailto:1719817580@qq.com">联系邮箱</a>
+    </div>
+    <div class="mail-line"><a href="mailto:1719817580@qq.com">1719817580@qq.com</a><br>邮箱会定期查看，欢迎合作交流</div>
+  </aside>
+
+  <!-- ===== 右侧滚动内容 ===== -->
+  <main>
+
+    <!-- 个人概述 -->
+    <section id="about">
+      <h2 class="sec">个人概述</h2>
+      <div class="rule"></div>
+      <p class="sec-sub">先读懂用户，再创造内容，最后用数据验证、及时迭代，才能带来可持续的增长。</p>
+      <div class="ability">
+        <div class="item"><b>小红书全链路运营</b><span>品牌企业账号运营 / KOS员工账号矩阵规划与日常管理、特殊行业类目合规备案、自然流SEO关键词布局、笔记选题与图文产出、广告投放、MCN/KOL合作推广、评论区私信承接、客户分层级维护回访、舆论负面追踪</span></div>
+        <div class="item"><b>付费投放</b><span>聚光广告全流程：人群定向、素材测款、出价优化、预算管控、线索成本与ROI复盘</span></div>
+        <div class="item"><b>达人 & 素人种草</b><span>蒲公英本地KOC / 垂直达人筛选建联、brief撰写、验收结算；统筹素人小白号铺量营造真实口碑</span></div>
+        <div class="item"><b>私域转化</b><span>公域→私信→微信分层承接→到店/到诊转化链路设计与话术SOP</span></div>
+        <div class="item"><b>团队与SOP</b><span>单项目带领6~8人小红书团队，目标拆解、选题库/话术/复盘表标准化，带教执行独立产出</span></div>
+      </div>
+    </section>
+
+    <!-- 作品集 -->
+    <section id="works">
+      <h2 class="sec">项目经验</h2>
+      <div class="rule"></div>
+      <p class="sec-sub">点击卡片可展开查看完整项目过程（背景—职责—动作—结果）。</p>
+
+      <div class="group-label">一、奢侈品回收赛道（2个）</div>
+
+      <details class="card">
+        <summary>
+          <div class="num">01</div>
+          <div class="card-head">
+            <span class="cat">全国连锁 · 矩阵化</span>
+            <h3>全国连锁奢侈品回收品牌 · 矩阵化运营</h3>
+            <p>多城市布点品牌，从零散各自为战到统一矩阵与可复制获客SOP。</p>
+          </div>
+          <div class="chev">▾</div>
+        </summary>
+        <div class="card-body">
+          <div class="star"><span class="lab s">S 背景</span><p>某全国连锁奢侈品回收品牌，多城市布点、统一品牌；平台入驻无二奢类目，且各门店各自为战、内容零散，线上估价咨询流失严重，缺乏统一话术与转化路径。</p></div>
+          <div class="star"><span class="lab t">T 职责</span><p>负责品牌小红书矩阵策略，统筹内容规划、自然流SEO、聚光投放与私信转化，并产出门店可复制的执行SOP。</p></div>
+          <div class="star"><span class="lab a">A 动作</span>
+            <ul>
+              <li><b>账号矩阵分层：</b>搭建"总部品牌号 + 城市门店号"两级矩阵，统一视觉模板、昵称规范与私信话术，避免多门店内容重复内耗。</li>
+              <li><b>内容体系：</b>围绕"大牌包款回收估价 / 行情科普 / 避坑指南 / 到店流程"四大选题，输出实拍包款行情、回收价目科普、鉴定小知识等图文内容。</li>
+              <li><b>自然流SEO：</b>标题与正文布局"城市 + 回收 + 品牌/包款名"搜索词，优化收藏与咨询引导，承接主动搜索的高意向用户。</li>
+              <li><b>聚光投放：</b>定向高消费城市与25–45岁人群，小预算多素材测款，关停低效计划，持续压低单条私信成本。</li>
+              <li><b>转化打通：</b>私信标准化估价话术，先确认所在城市再引导就近门店到店，线上线索分发到对应门店承接。</li>
+              <li><b>SOP沉淀：</b>输出选题库、发布节奏、私信话术与门店执行手册，供各门店照做。</li>
+            </ul>
+          </div>
+          <div class="star"><span class="lab r">R 结果</span>
+            <ul>
+              <li>建成矩阵账号144个，单账号月均有效估价咨询140+；</li>
+              <li>通过素材迭代与人群优化，单条私信成本下降约40%；</li>
+              <li>单账号线上引导到店70/月，形成可复制到新城市门店的获客SOP。</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div class="num">02</div>
+          <div class="card-head">
+            <span class="cat">北京单店 · 视频转型</span>
+            <h3>北京独立小型回收店 · 图文转视频打造鉴定师口碑</h3>
+            <p>几乎零付费预算，跑通"笔记曝光→私信咨询→到店成交"同城闭环。</p>
+          </div>
+          <div class="chev">▾</div>
+        </summary>
+        <div class="card-body">
+          <div class="star"><span class="lab s">S 背景</span><p>北京一家独立小型二手奢侈品回收店，单店经营、预算有限、无专职团队；原有账号以图文为主、权重偏低，缺乏专业口碑，客源长期依赖熟人转介绍。</p></div>
+          <div class="star"><span class="lab t">T 职责</span><p>更改现有账号的运营模式，由图文变为视频，打造鉴定师的口碑，在几乎零付费预算下跑通"笔记曝光→私信咨询→到店成交"的同城获客闭环。</p></div>
+          <div class="star"><span class="lab a">A 动作</span>
+            <ul>
+              <li><b>模式转型：</b>账号内容由图文转为短视频，围绕鉴定师实拍鉴定过程、包款成色鉴别、估价区间科普持续更新。</li>
+              <li><b>鉴定师口碑：</b>突出鉴定师专业出镜与真实鉴定场景，建立"懂行、靠谱、无套路、不压价"的信任人设。</li>
+              <li><b>自然流为主：</b>重点吃北京同城搜索与推荐流量，不做大额投放，把预算压到最低。</li>
+              <li><b>私信一对一：</b>用标准化又不失温度的报价话术建立信任，引导到店看实物成交。</li>
+              <li><b>老客裂变：</b>引导成交客户发体验好评，沉淀口碑内容反哺账号。</li>
+            </ul>
+          </div>
+          <div class="star"><span class="lab r">R 结果</span>
+            <ul>
+              <li>3个月恢复账号权重和视频曝光量，月均私信咨询70+；</li>
+              <li>产出12条爆款内容，单条带来咨询20+；</li>
+              <li>在近乎零付费成本下跑通单店同城获客，验证小体量门店的可落地打法。</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <div class="group-label">二、精神心理医疗赛道（4个）</div>
+
+      <details class="card">
+        <summary>
+          <div class="num">03</div>
+          <div class="card-head">
+            <span class="cat">成都 · 南方</span>
+            <h3>成都 · 受限受理范围下的口碑与复诊运营</h3>
+            <p>不接未成年 / 60+ / 产后抑郁 / 婚恋情感，靠客服精细化维护高复诊率，KOS矩阵 + 聚光获客。</p>
+          </div>
+          <div class="chev">▾</div>
+        </summary>
+        <div class="card-body">
+          <div class="star"><span class="lab s">S 背景</span><p>成都某精神心理专科医院，不接未成年（未成年独立看诊不计入客资）、不接60岁以上人群，不接产后抑郁、恋爱婚姻情感类；<br><br>平台竞对以私立为主、口碑较好、受理范围广；本院公立多点医生同时也在竞对医院接诊。<br><br>本院优势在于客服后期维护到位、复诊率高；负面评价虽时有出现，需要及时响应处理。</p></div>
+          <div class="star"><span class="lab t">T 职责</span><p>在受限合理范围内搭建本地内容与KOS员工号矩阵，企业号与员工号配合聚光投流，获取精准成人咨询并维护线上口碑。</p></div>
+          <div class="star"><span class="lab a">A 动作</span>
+            <ul>
+              <li><b>合规选题：</b>只做成人焦虑、失眠、职场情绪等本院可接方向，主动规避未成年、60+、产后抑郁、婚恋情感等不受理词，减少无效客资。</li>
+              <li><b>KOS员工号：</b>打造医生助理号、公立医生个人号，由个人号引流到私立多点坐诊，再引导至所负责的项目医院就诊。</li>
+              <li><b>企业号 + 员工号配合聚光投流：</b>企业号承接品牌背书，医生助理 / 医生员工号做人设信任，两套账号协同投放聚光；定向成都本地成人人群，小预算多素材测款、优化出价、管控单条留资成本，持续关停低效计划。</li>
+              <li><b>口碑与复诊：</b>私域由客服精细化后期维护、提升复诊率；对负面评价及时响应处理，降低扩散影响。</li>
+              <li><b>本地SEO：</b>布局成都本地可接方向搜索词，承接主动咨询。</li>
+            </ul>
+          </div>
+          <div class="star"><span class="lab r">R 结果</span>
+            <ul>
+              <li>月均留资由个位数增长到最高203，有效率最高达到51.22%；到诊由个位数增长到65，二转率最高达到58.82%；</li>
+              <li>在受限合理范围内沉淀稳定可接客资基本盘，复诊率与口碑维护形成正向循环，到诊结果不再以老客复诊为主。</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div class="num">04</div>
+          <div class="card-head">
+            <span class="cat">重庆 · 南方</span>
+            <h3>重庆 · 服务差异化破局 + 多平台统一口碑</h3>
+            <p>本院规模小、设施老旧，竞对以公立为主；以服务和多渠道联动取胜，主做产后抑郁 / 婚恋情感。</p>
+          </div>
+          <div class="chev">▾</div>
+        </summary>
+        <div class="card-body">
+          <div class="star"><span class="lab s">S 背景</span><p>重庆某精神心理专科医院，本院名气主要来自其他科室，本院规模小、设施较老旧，距成都较近；平台竞对以公立为主、竞争力强。本院以产后抑郁、恋爱婚姻情感为主要方向，不独立接诊青少年，家长陪同情况下可接待。</p></div>
+          <div class="star"><span class="lab t">T 职责</span><p>避开硬拼公立名气，以服务差异化破局，联动其他平台渠道统一主推口碑，企业号与员工号配合聚光，获取本地精准咨询。</p></div>
+          <div class="star"><span class="lab a">A 动作</span>
+            <ul>
+              <li><b>服务差异化：</b>主打贴心服务、就诊流程透明、响应及时，用体验感弥补规模与硬件短板。</li>
+              <li><b>多平台联动：</b>联合大众、爱医医、抖音、公众号等渠道，与小红书内容统一主推口碑、互相导流。</li>
+              <li><b>定向选题：</b>以产后抑郁、恋爱婚姻情感为主线；青少年仅在家长陪同下承接，表述保持合规。</li>
+              <li><b>KOS员工号：</b>打造医生 / 咨询师个人号做人设信任，企业号做品牌背书，企业号与员工号配合聚光定向重庆本地。</li>
+              <li><b>在地化与搜索：</b>输出重庆场景化就医指南，布局本地关键词承接主动搜索。</li>
+            </ul>
+          </div>
+          <div class="star"><span class="lab r">R 结果</span>
+            <ul>
+              <li>留资成本和到诊成本下降约60%；多渠道统一口碑落地，到店前咨询顾虑明显减少；</li>
+              <li>月均留资由二十几增长到最高156，有效率最高达到47.35%；到诊由十几增长到55，二转率最高达到42.71%。</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details class="card">
+        <summary>
+          <div class="num">05</div>
+          <div class="card-head">
+            <span class="cat">沈阳 · 北方</span>
+            <h3>沈阳 · 传统渠道转线上、KOS矩阵打造本院医生口碑</h3>
+            <p>原依赖百度投放 / 公众号，小红书基础弱；只推本院医生，AI斯坦福机器人设备做主推。</p>
+          </div>
+          <div class="chev">▾</div>
+        </summary>
+        <div class="card-body">
+          <div class="star"><span class="lab s">S 背景</span><p>沈阳某医院主要依赖传统渠道（百度投放、公众号），抖音与小红书比较薄弱；公立多点医生不配合推广，只能主推本院医生；不接青少年独自就诊。本院有特色技术——AI斯坦福机器人设备，可作为主推亮点。单渠道预算有限的情况下，公众号在小红书平台推广引流并相互配合。</p></div>
+          <div class="star"><span class="lab t">T 职责</span><p>从0搭建小红书，配合KOS员工号矩阵打造本院医生口碑，以特色设备为卖点，企业号与员工号配合聚光，并带教本地团队。</p></div>
+          <div class="star"><span class="lab a">A 动作</span>
+            <ul>
+              <li><b>渠道转型：</b>把传统百度 / 公众号经验迁移到小红书，公众号内容在小红书合规引流、相互打配合。</li>
+              <li><b>KOS矩阵：</b>围绕本院医生打造员工号矩阵（公立多点医生不配合，只推本院医生），统一人设与内容口径。</li>
+              <li><b>特色卖点：</b>以AI斯坦福机器人设备为主推内容，做科普与体验感差异化。</li>
+              <li><b>合规边界：</b>不接青少年独自就诊，选题主动规避对应表述。</li>
+              <li><b>聚光与带教：</b>企业号 + 员工号配合聚光小额测试再放量；搭建标准化选题库与SOP，带教本地团队独立产出。</li>
+            </ul>
+          </div>
+          <div class="star"><span class="lab r">R 结果</span>
+            <ul>
+              <li>月均留资由个位数增长到最高317，有效率最高达到66.67%；到诊由个位数增长到最高144，二转率最高达到62.39%；</li>
+              <li>完成账号0→1起号并通过合规备案，本地团队可按SOP独立产出内容与承接咨询，不再依赖专人盯守。</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+
+      <details class="card" open>
+        <summary>
+          <div class="num">06</div>
+          <div class="card-head">
+            <span class="cat">天津 · 北方</span>
+            <h3>天津 · 医院+机构双线程 · 矩阵+投放+达人+私域全链路</h3>
+            <p>开药 / 重症导医院，轻咨询导下属机构；医生 + 咨询师双推，企业号 + 员工号配合聚光。</p>
+          </div>
+          <div class="chev">▾</div>
+        </summary>
+        <div class="card-body">
+          <div class="star"><span class="lab s">S 背景</span><p>天津采用医院 + 机构双线程运营：需要开药 / 症状较重的引导到医院就诊，轻需求 / 只做咨询的引导到下属机构做咨询；医生 + 咨询师双推。无公立多点医生配合，主推本院医生；需贴合平台严打规则，以恋爱婚姻情感咨询为明线，谨慎处理抑郁、焦虑等敏感病种表述以避免限流。</p></div>
+          <div class="star"><span class="lab t">T 职责</span><p>统筹企业号 + KOS员工号矩阵、自然流内容、聚光投放、达人 / 素人合作与微信私域承接全链路，对有效咨询量与到诊 / 到店转化率负责。</p></div>
+          <div class="star"><span class="lab a">A 动作</span>
+            <ul>
+              <li><b>双线程分流：</b>按需求轻重把线索分别导向医院（开药 / 症状重）与下属机构（轻咨询），医生与咨询师双线推荐、分别承接。</li>
+              <li><b>矩阵搭建：</b>搭建"企业官方号 + 本院医生 / 咨询师KOS员工号"体系，统筹员工号开通、人设包装、内容分发与日常管理；完成医疗类目合规备案与内容审核。</li>
+              <li><b>企业号 + 员工号配合聚光：</b>企业号做品牌背书，员工号做人设信任，两套账号协同投聚光，定向天津本地需求人群，优化人群、素材与出价、管控单客成本。</li>
+              <li><b>合规选题：</b>以恋爱婚姻情感咨询为主线规划内容，抑郁 / 焦虑等敏感病种词谨慎表述，规避平台严打限流。</li>
+              <li><b>达人 & 素人种草：</b>蒲公英联动本地生活达人与心理垂直KOC输出真实体验，统筹素人小白号铺量营造口碑。</li>
+              <li><b>私域闭环：</b>评论引导→私信→微信分层承接，按需求类型分流到医院或机构，提升转化。</li>
+            </ul>
+          </div>
+          <div class="star"><span class="lab r">R 结果</span>
+            <ul>
+              <li>医院方面月均留资最高226，到诊最高105；</li>
+              <li>机构方面月均留资最高448，到诊最高210；</li>
+              <li>形成内容、投放、达人、私域相互配合的稳定获客体系。</li>
+            </ul>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <!-- 经验沉淀 -->
+    <section id="skill">
+      <h2 class="sec">经验沉淀</h2>
+      <div class="rule"></div>
+      <p class="sec-sub">以下为可复用的个人方法沉淀，面试中可直接展开讲。</p>
+      <div class="method">
+        <div class="m"><b>内容方向</b><ul><li>痛点科普 / 本地信任 / 行情估价 / 就医指南 等中心选题</li><li>痛点选题—结构化正文—收藏/咨询引导三段式</li></ul></div>
+        <div class="m"><b>聚光投放</b><ul><li>建计划→小预算测素材→关停低效→加码高转化</li><li>只盯CTR、CPC、单线索成本、到店/到诊转化</li><li>素材定期更新防止衰退</li></ul></div>
+        <div class="m"><b>达人 & 素人</b><ul><li>少量头部背书 + 本地KOC/KOL + 素人小白号铺量</li><li>二奢不虚构高价回收、医疗不承诺疗效</li><li>平台官方充值结算 + 按笔记发布量、互动量机构结算</li></ul></div>
+        <div class="m"><b>私域闭环</b><ul><li>笔记曝光→评论答疑→私信→微信分层→预约</li><li>按需求类型/紧急度打标签分层推送，不群发骚扰、跟进未回复线索</li><li>回收行业维护老客二次成交，医疗行业定期回访</li></ul></div>
+      </div>
+    </section>
+
+    <!-- 脱敏说明 -->
+    <section id="contact" class="foot">
+      <p class="note">说明：本作品集中公司、机构、账号、客户等敏感主体均已脱敏，以"赛道 + 城市 + 实际业绩区间"呈现，数字为本人操盘期间的真实范围。医疗素材不出现患者姓名、头像、诊断、用药与疗效承诺。</p>
+    </section>
+
+  </main>
+</div>
+
+<script>
+  // 滚动感知：未滚动时左栏与页面融合，滚动后轻量吸附浮现
+  function onScroll(){
+    document.body.classList.toggle('scrolled', window.scrollY > 8);
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+</script>
+
+</body>
+</html>
