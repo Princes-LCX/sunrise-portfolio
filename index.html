@@ -128,6 +128,7 @@
       background:transparent;border-radius:0;border-left:none;
       color:var(--muted);font-size:13.5px;
     }
+    .side-nav a + a{border-left:1px dashed rgba(120,90,60,.35);}
     .side-nav a:hover{background:var(--accent-soft);color:var(--accent);}
     .side-nav.stuck{
       position:fixed;top:0;left:0;right:0;z-index:50;
@@ -135,6 +136,7 @@
       background:var(--ink);box-shadow:0 1px 0 var(--line);
     }
     .side-nav.stuck a{color:#fff;}
+    .side-nav.stuck a + a{border-left:1px dashed rgba(255,255,255,.3);}
     .side-nav.stuck a:hover{background:rgba(255,255,255,.12);color:#fff;}
   }
 </style>
