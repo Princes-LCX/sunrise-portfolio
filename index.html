@@ -110,11 +110,12 @@
     aside{position:static;max-height:none;}
     body.scrolled aside{background:transparent;border-color:transparent;box-shadow:none;}
     main{padding:24px 16px;}
-    details.card summary{display:block;padding:16px;position:relative;}
+    details.card summary{display:flex;align-items:flex-start;gap:8px;padding:16px;position:relative;}
     details.card summary .chev{position:absolute;top:18px;right:16px;margin-top:0;}
-    .num{float:left;min-width:0;font-size:14px;font-weight:700;margin:0 8px 0 0;line-height:24px;display:block;height:auto;}
-    .card-head .cat{display:inline-block;line-height:20px;vertical-align:middle;margin:2px 0;}
-    .card-head h3{clear:both;margin-top:6px;}
+    .num{min-width:0;font-size:14px;font-weight:700;line-height:24px;margin:0;}
+    .card-head{flex:1;min-width:0;}
+    .card-head .cat{display:inline-block;line-height:20px;vertical-align:middle;}
+    .card-head h3{margin-top:6px;}
     .card-body{margin:0;padding:14px 16px 0;border-top:1px dashed var(--line);}
     .ability,.method{grid-template-columns:1fr;}
     .ability .item:first-child{grid-column:auto;}
