@@ -107,9 +107,13 @@
 
   @media(max-width:820px){
     .layout{grid-template-columns:1fr;}
-    aside{position:static;max-height:none;}
+    aside{position:static;max-height:none;display:flex;flex-wrap:wrap;align-items:center;}
     body.scrolled aside{background:transparent;border-color:transparent;box-shadow:none;}
     main{padding:24px 16px;}
+    aside .avatar{width:80px;height:80px;margin:0 14px 0 0;flex-shrink:0;}
+    aside .kicker{flex:1;margin:0;}
+    aside h1{flex:1;margin:4px 0 0;font-size:26px;}
+    aside .bio{flex:1 1 100%;margin-top:16px;}
     details.card summary{display:block;padding:16px;position:relative;}
     details.card summary .chev{position:absolute;top:18px;right:16px;margin-top:0;}
     .num{float:left;min-width:0;font-size:14px;font-weight:700;line-height:24px;margin:0 8px 0 0;}
